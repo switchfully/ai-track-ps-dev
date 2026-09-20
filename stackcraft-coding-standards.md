@@ -1,4 +1,4 @@
-# StackCraft Engineering — Coding Standards
+# StackCraft Engineering: Coding Standards
 **Version 3.1 · Effective from Q1 2025 · Applies to all backend Java projects**
 
 ---
@@ -123,7 +123,7 @@ Violation severity: **Major**
 
 ### 3.1 Minimum coverage
 Line coverage must be at least 80%. Branch coverage must be at least 70%.
-The CI pipeline enforces this — builds will fail below these thresholds.
+The CI pipeline enforces this: builds will fail below these thresholds.
 
 ---
 

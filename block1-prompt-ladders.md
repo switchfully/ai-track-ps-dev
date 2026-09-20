@@ -1,21 +1,21 @@
 # Block 1 Prompt Ladders
-**09:30 — 11:00 · Pair AB and Pair CD work in parallel**
+**09:30-11:00 · Pair AB and Pair CD work in parallel**
 
 These are structured prompts, not free-form suggestions. Work through them in order.
-The goal of this block is not to finish as much as possible — it is to build prompting habits
+The goal of this block is not to finish as much as possible: it is to build prompting habits
 that will make the rest of the day faster and safer.
 
 After each prompt: read the output critically before using it. If something feels off, it probably is.
 
 ---
 
-## Pair AB — Domain model & REST API skeleton
+## Pair AB: Domain model & REST API skeleton
 
 You are building the entity model and the basic CRUD endpoints for RetroFlow.
 
 ---
 
-### Prompt 1 — Understand before you build
+### Prompt 1: Understand before you build
 
 Open Copilot Chat. Paste the full contents of the RetroFlow brief and send this prompt:
 
@@ -27,7 +27,7 @@ Here is the project brief:
 
 Explain the domain to me as if I'm a new developer joining the team.
 Then identify every ambiguity or missing detail you find in the requirements.
-Be specific — don't just say "the requirements could be clearer."
+Be specific: don't just say "the requirements could be clearer."
 ```
 
 **What to do with the output:**
@@ -41,7 +41,7 @@ Be specific — don't just say "the requirements could be clearer."
 
 ---
 
-### Prompt 2 — Entity model proposal
+### Prompt 2: Entity model proposal
 
 ```
 Based on this domain brief, propose a complete JPA entity model for RetroFlow in Java 21
@@ -51,12 +51,12 @@ with Spring Boot 3.x. Include:
 - Validation annotations where appropriate
 - The FeedbackItem/ActionItem inheritance using an appropriate JPA strategy
 
-For each design decision, explain why you made it — especially where you had a choice
+For each design decision, explain why you made it: especially where you had a choice
 between alternatives (e.g. inheritance strategy, fetch type, collection type).
 ```
 
 **What to do with the output:**
-- Compare the proposed entity model to your `decisions.md` — does it match your decisions?
+- Compare the proposed entity model to your `decisions.md`: does it match your decisions?
 - Check the inheritance strategy Copilot chose. Do you agree? What are the trade-offs of
   the alternative?
 - Check the fetch strategies. Are lazy relationships going to cause N+1 problems anywhere?
@@ -64,7 +64,7 @@ between alternatives (e.g. inheritance strategy, fetch type, collection type).
 
 ---
 
-### Prompt 3 — Implement the entities
+### Prompt 3: Implement the entities
 
 Once you've agreed on the model:
 
@@ -90,36 +90,36 @@ Provide each class in full. No placeholders or TODOs.
 
 ---
 
-### Prompt 4 — REST endpoints for Teams and Retrospectives
+### Prompt 4: REST endpoints for Teams and Retrospectives
 
 ```
 Implement Spring Boot REST controllers for the following operations in RetroFlow.
-Use a service layer — do not put business logic in the controller.
+Use a service layer: do not put business logic in the controller.
 
 Operations:
-- POST /api/teams — create a team (name + list of member names)
-- GET /api/teams/{id} — get a team by id
-- POST /api/teams/{teamId}/retrospectives — create a retrospective for a team
-- GET /api/teams/{teamId}/retrospectives — list all retrospectives for a team
-- PUT /api/retrospectives/{id}/close — close a retrospective
+- POST /api/teams: create a team (name + list of member names)
+- GET /api/teams/{id}: get a team by id
+- POST /api/teams/{teamId}/retrospectives: create a retrospective for a team
+- GET /api/teams/{teamId}/retrospectives: list all retrospectives for a team
+- PUT /api/retrospectives/{id}/close: close a retrospective
 
 For each endpoint:
 - Return the correct HTTP status code for success and for common error cases
-- Validate all input — reject invalid requests with 400 and a meaningful message
+- Validate all input: reject invalid requests with 400 and a meaningful message
 - Throw an appropriate exception for business rule violations (do not return nulls)
 
 Also generate the corresponding service class stubs with method signatures but no
-implementation yet — we will implement the business logic separately.
+implementation yet: we will implement the business logic separately.
 ```
 
 **What to do with the output:**
 - Check the HTTP status codes. Are they correct? (201 for creation, 404 for not found, etc.)
-- Check the error handling — is it using @RestControllerAdvice or something else?
+- Check the error handling: is it using @RestControllerAdvice or something else?
 - Are the service method signatures sensible?
 
 ---
 
-### Prompt 5 — Interrogate the output
+### Prompt 5: Interrogate the output
 
 This is the most important prompt of the block. Do not skip it.
 
@@ -139,19 +139,19 @@ Business rules to check:
 
 **What to do with the output:**
 - This is your quality gate. Anything missing needs to be added before the block ends.
-- Note down which rules Copilot says are enforced but you cannot verify in the code — those
+- Note down which rules Copilot says are enforced but you cannot verify in the code, those
   need a test before you trust them.
 
 ---
 
-## Pair CD — Project scaffolding & CI pipeline
+## Pair CD: Project scaffolding & CI pipeline
 
 You are setting up the project infrastructure: a clean build, a working Dockerfile,
 and a CI pipeline that keeps the team honest.
 
 ---
 
-### Prompt 1 — Audit the existing setup
+### Prompt 1: Audit the existing setup
 
 ```
 I have a Spring Boot 3.x Maven project. Here is the pom.xml:
@@ -171,19 +171,19 @@ Audit this setup and tell me:
 ```
 
 **What to do with the output:**
-- Fix the README first — it should reflect reality
+- Fix the README first: it should reflect reality
 - Note the improvement suggestions. Which ones are worth doing today?
 
 ---
 
-### Prompt 2 — Dockerfile
+### Prompt 2: Dockerfile
 
 ```
 Write a production-quality Dockerfile for this Spring Boot Maven application.
 
 Requirements:
 - Multi-stage build (build stage + runtime stage)
-- Minimize final image size — use a JRE, not a JDK, in the runtime stage
+- Minimize final image size: use a JRE, not a JDK, in the runtime stage
 - Do not run the application as root
 - The build stage should run `mvn package -DskipTests`
 - The final image should expose port 8080
@@ -201,7 +201,7 @@ Specifically address: why multi-stage? what are the security implications of run
 
 ---
 
-### Prompt 3 — GitHub Actions CI pipeline
+### Prompt 3: GitHub Actions CI pipeline
 
 ```
 Write a GitHub Actions workflow for this Spring Boot Maven project.
@@ -221,14 +221,14 @@ and tell me whether this workflow has any of them.
 ```
 
 **What to do with the output:**
-- This is a good moment to actually think about the security question — not just copy the answer
+- This is a good moment to actually think about the security question, not just copy the answer
 - Check the JaCoCo config: does it actually fail the build on low coverage, or just report?
-  (These are different configurations — Copilot often generates reporting without enforcement)
+  (These are different configurations: Copilot often generates reporting without enforcement)
 - Save the workflow to `.github/workflows/ci.yml`
 
 ---
 
-### Prompt 4 — Interrogate the pipeline
+### Prompt 4: Interrogate the pipeline
 
 ```
 Review this GitHub Actions workflow for common misconfigurations:
@@ -247,12 +247,12 @@ For each issue you find, suggest a fix.
 
 **What to do with the output:**
 - This prompt deliberately asks Copilot to audit something Copilot just generated
-- See if it catches its own mistakes — it often does, which is a useful thing to demonstrate
+- See if it catches its own mistakes; it often does, which is a useful thing to demonstrate
 - Apply at least the critical fixes before the block ends
 
 ---
 
-### Prompt 5 — Developer experience
+### Prompt 5: Developer experience
 
 ```
 What else should this repository have for a developer joining the project for the first time?
@@ -265,7 +265,7 @@ in under 5 minutes.
 ```
 
 **What to do with the output:**
-- A good README is a real deliverable — don't treat this as a throwaway task
+- A good README is a real deliverable, don't treat this as a throwaway task
 - Check that the commands in the README actually work before committing it
 
 ---
@@ -289,4 +289,4 @@ Before Retro 1 at 11:00, your team should be able to answer yes to:
 
 **Both pairs together:**
 - [ ] Code from both pairs is committed and merged (deal with any conflicts now)
-- [ ] `mvn verify` runs without build errors (tests will fail — that's expected)
+- [ ] `mvn verify` runs without build errors (tests will fail, that's expected)

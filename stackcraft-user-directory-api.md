@@ -118,7 +118,7 @@ If you exceed the limit, requests return 429 with no further information.
 
 - User names are matched case-insensitively
 - Inactive users (`active: false`) can still be found but should not be added to teams
-- The API does not support pagination — all matching users are returned
+- The API does not support pagination; all matching users are returned
 
 ---
 

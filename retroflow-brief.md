@@ -1,4 +1,4 @@
-# RetroFlow — Project Brief
+# RetroFlow: Project Brief
 
 **Client:** StackCraft (internal tooling team)
 **Issued to:** Development team
@@ -56,11 +56,11 @@ RetroFlow is a backend REST API. There is no frontend in scope for today. The AP
 
 - Java 21, Spring Boot 3.x
 - Spring Data JPA with an in-memory H2 database (no persistence required between restarts)
-- Maven or Gradle — your choice
+- Maven or Gradle, your choice
 - No authentication or security layer required (assume all users are trusted internal users)
 - All endpoints must return appropriate HTTP status codes
-- Input validation is required — invalid requests must return a `400` with a meaningful error message
-- A reasonable level of test coverage is expected — aim for the happy path plus the key business rules
+- Input validation is required: invalid requests must return a `400` with a meaningful error message
+- A reasonable level of test coverage is expected: aim for the happy path plus the key business rules
 
 ---
 
@@ -75,7 +75,7 @@ The starter repository contains:
 - A broken test file with three failing tests (they reference methods that don't exist yet)
 - A `README.md` that is mostly wrong
 
-Your job is to make this work. Use AI to get there faster — but you are responsible for what ships.
+Your job is to make this work. Use AI to get there faster, but you are responsible for what ships.
 
 ---
 
