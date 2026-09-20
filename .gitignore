@@ -1,0 +1,9 @@
+# Ignore everything by default.
+*
+
+# Keep directories searchable so nested Markdown files can be included.
+!*/
+
+# Track Markdown files and this ignore file.
+!*.md
+!/.gitignore
