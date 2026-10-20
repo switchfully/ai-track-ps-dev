@@ -15,6 +15,8 @@ you haven't tried.
   IntelliJ, Visual Studio, and VS Code specifically.
 - [`claude-code-cli.md`](claude-code-cli.md): a terminal-based alternative to Copilot, useful if
   you have access to it.
+- [`working-efficiently.md`](working-efficiently.md): instructions files, prompt files, skills and
+  some habits for working with agents. You'll use this in Blocks 2 and 3.
 - [`what-is-mcp.md`](what-is-mcp.md): what the "hosted MCP server" you'll connect to in Block 3
   actually is and why it matters.
 

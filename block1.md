@@ -1,11 +1,13 @@
 # Block 1 Prompt Ladders
-**09:30-11:00 · Pair AB and Pair CD work in parallel**
+**09:30-11:00** · 15 minutes of theory first, then 75 minutes to work. Pair AB and Pair CD work in parallel.
 
 These are structured prompts, not free-form suggestions. Work through them in order.
 The goal of this block is not to finish as much as possible: it is to build prompting habits
 that will make the rest of the day faster and safer.
 
 After each prompt: read the output critically before using it. If something feels off, it probably is.
+
+> Work in your IDE with the repo open. Copilot can see your project, so you don't have to paste code into the chat. Point it at a file instead (`#file:pom.xml` in VS Code, or attach the file with the `+` button in other IDEs). The more precisely you say what it should look at, the better the answer.
 
 ---
 
@@ -144,6 +146,28 @@ Business rules to check:
 
 ---
 
+### Prompt 6: turn the rules into a test matrix
+
+Don't write any tests yet. First make sure you know exactly what has to be tested. You'll need this table in Block 2.
+
+```
+Based on the RetroFlow brief and our decisions.md, make a table of every business rule.
+One row for every rule and for every operation it covers. For example, "feedback items in
+a closed retrospective cannot be modified or deleted" is two rows (modify and delete), and
+adding to a closed retrospective is a third.
+
+Columns: rule, operation, situation, expected result, exception, HTTP status.
+Use only the brief and decisions.md. If a row needs a decision we haven't written down,
+flag it instead of choosing.
+```
+
+**What to do with the output:**
+- Count the rows yourself. Four rules in the brief: how many rows should there be? Is anything missing?
+- Check the HTTP status column against `decisions.md`. If the AI picked a status that you never decided, discuss it with your pair and write down your choice.
+- Save the table as `test-matrix.md` in the root of the repo. Pair AC starts from it in Block 2.
+
+---
+
 ## Pair CD: Project scaffolding & CI pipeline
 
 You are setting up the project infrastructure: a clean build, a working Dockerfile,
@@ -154,13 +178,8 @@ and a CI pipeline that keeps the team honest.
 ### Prompt 1: Audit the existing setup
 
 ```
-I have a Spring Boot 3.x Maven project. Here is the pom.xml:
-
-[paste pom.xml contents]
-
-And here is the application.properties:
-
-[paste application.properties contents]
+I have a Spring Boot 3.x Maven project. Look at #file:pom.xml and
+#file:src/main/resources/application.properties.
 
 The README says this project uses Gradle and PostgreSQL. The actual files suggest otherwise.
 Audit this setup and tell me:
@@ -231,9 +250,8 @@ and tell me whether this workflow has any of them.
 ### Prompt 4: Interrogate the pipeline
 
 ```
-Review this GitHub Actions workflow for common misconfigurations:
-
-[paste the generated workflow]
+Review the GitHub Actions workflow in #file:.github/workflows/ci.yml for common
+misconfigurations.
 
 Specifically check for:
 1. Pinned vs unpinned action versions (security implications)
@@ -270,6 +288,26 @@ in under 5 minutes.
 
 ---
 
+## The last 15 minutes, with your whole team: write your house rules
+
+By now you've probably typed "constructor injection", "no Lombok" or "explain your choice" more than once. That's annoying, and it's easy to forget one of them. So let's write them down once, in a place where the AI reads them before every request.
+
+* Together with the other pair, write a short instructions file for this project: `.github/copilot-instructions.md` (10 to 20 lines). Using Claude Code? Call it `CLAUDE.md`. Use the lines from your prompts that made the biggest difference. You can let the AI draft it, but do edit it yourselves afterwards:
+
+```
+Based on the prompts we used this morning [paste 2 or 3 of your best prompts], write a
+short set of standing instructions for an AI assistant working on this codebase. Cover:
+the stack and versions, how we write code (injection, naming, error handling), how we
+write tests, what it must always do before it says it's done (run `mvn test`), and what
+it must never do. Keep it under 20 lines.
+```
+
+* Make sure it contains at least these two rules, in your own words: the AI never changes a test just to make it pass (it asks first), and it never adds a dependency without checking that it exists.
+* Commit it to the shared repo. In Block 2 the agent reads this file automatically.
+* Try it out. Start a new chat, and run one of your earlier prompts again, but this time without the extra rules. Does the answer still follow them?
+
+---
+
 ## End of Block 1 checklist
 
 Before Retro 1 at 11:00, your team should be able to answer yes to:
@@ -280,6 +318,7 @@ Before Retro 1 at 11:00, your team should be able to answer yes to:
 - [ ] Application compiles (`mvn compile` passes)
 - [ ] Controller and service stubs exist for Teams and Retrospectives
 - [ ] You've run Prompt 5 and know which business rules are not yet enforced
+- [ ] `test-matrix.md` exists with a row for every rule and operation
 
 **Pair CD:**
 - [ ] README.md reflects reality
@@ -288,5 +327,6 @@ Before Retro 1 at 11:00, your team should be able to answer yes to:
 - [ ] You can articulate the security concern from Prompt 4
 
 **Both pairs together:**
+- [ ] `test-matrix.md` and your instructions file are in the shared repo
 - [ ] Code from both pairs is committed and merged (deal with any conflicts now)
 - [ ] `mvn verify` runs without build errors (tests will fail, that's expected)
