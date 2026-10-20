@@ -1,5 +1,4 @@
 # Block 3: Grounding and skills
-**13:45-15:15** · 15 minutes of theory first, then 75 minutes to work. Pair AD and Pair BC work in parallel.
 
 Last rotation of the day! This block, both pairs connect their AI to a real source document: StackCraft's coding standards. We serve that document through an MCP server we host ourselves. Once that works, both pairs take what they learned today and turn it into a skill: a set of instructions the AI only loads when it actually needs them.
 

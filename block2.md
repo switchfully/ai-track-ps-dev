@@ -1,5 +1,4 @@
 # Block 2: Working with an agent
-**11:15-12:45** · 15 minutes of theory first, then 75 minutes to work. Pair AC and Pair BD work in parallel.
 
 New pairs! This block, both pairs work with an AI agent. An agent is an AI that reads and edits your files by itself, runs commands like `mvn test`, reads the output and goes again. That changes your job quite a bit: you're no longer writing prompts that produce code, you're giving instructions, reviewing a plan and checking what it changed.
 

@@ -1,5 +1,4 @@
 # Block 2 Prompt Ladders
-**11:15-12:45 · Pair AC and Pair BD work in parallel**
 
 Pairs have rotated. You are now working with someone you haven't paired with today yet.
 Before you write a single prompt: spend 5 minutes reading the code your teammates wrote

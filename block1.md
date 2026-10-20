@@ -1,5 +1,4 @@
 # Block 1 Prompt Ladders
-**09:30-11:00** · 15 minutes of theory first, then 75 minutes to work. Pair AB and Pair CD work in parallel.
 
 These are structured prompts, not free-form suggestions. Work through them in order.
 The goal of this block is not to finish as much as possible: it is to build prompting habits

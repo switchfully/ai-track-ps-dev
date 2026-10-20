@@ -1,5 +1,4 @@
 # Block 3 Prompt Ladders
-**13:45-15:15 · Pair AD and Pair BC work in parallel**
 
 Final pair rotation. This block goes deeper than anything you've done today.
 The goal is not to finish everything: it's to experience what these tools actually feel like
