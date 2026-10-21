@@ -12,7 +12,7 @@ After each prompt: read the output critically before using it. If something feel
 
 ## Pair AB: Domain model & REST API skeleton
 
-You are building the entity model and the basic CRUD endpoints for RetroFlow.
+You are building the entity model and the basic CRUD endpoints for RetroFlow. The current version can be found at https://github.com/switchfully/ai-track-ps-dev.git
 
 ---
 
