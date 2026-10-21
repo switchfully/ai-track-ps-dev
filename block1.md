@@ -12,8 +12,8 @@ After each prompt: read the output critically before using it. If something feel
 
 ## Pair AB: Domain model & REST API skeleton
 
-You are building the entity model and the basic CRUD endpoints for RetroFlow. The current version can be found at https://github.com/switchfully/ai-track-ps-dev.git
-
+You are building the entity model and the basic CRUD endpoints for RetroFlow. The current version can be found at [https://github.com/switchfully/ai-track-ps-dev-retroflow
+](https://github.com/switchfully/ai-track-ps-dev-retroflow)
 ---
 
 ### Prompt 1: Understand before you build
