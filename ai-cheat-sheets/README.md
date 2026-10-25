@@ -20,5 +20,4 @@ you haven't tried.
 - [`what-is-mcp.md`](what-is-mcp.md): what the "hosted MCP server" you'll connect to in Block 3
   actually is and why it matters.
 
-If something breaks and these guides don't cover it, see `../../ai-tooling-fallback.md` or ask
-your coach.
+If something breaks and these guides don't cover it, ask your coach.

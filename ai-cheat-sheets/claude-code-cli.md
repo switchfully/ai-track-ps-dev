@@ -55,5 +55,5 @@ Useful things to know once you're in a session:
 ## If you don't have access
 
 Claude Code requires a paid plan and isn't available to everyone. This is fine, it's a bonus
-tool for today, not a requirement. See `../../ai-tooling-fallback.md` for the fallback options
-if you're relying on agent mode and don't have Copilot or Claude Code available.
+tool for today, not a requirement. Relying on agent mode and have neither Copilot
+nor Claude Code available? Tell your coach, there is a fallback.
