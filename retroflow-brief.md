@@ -87,7 +87,7 @@ Good software development means asking questions. If something is ambiguous, sur
 
 ## Definition of done for today
 
-By 16:00, your team should have:
+By the showcase at the end of Block 3 (15:15), your team should have:
 
 - [ ] All entities implemented with correct relationships
 - [ ] REST endpoints for all operations described above

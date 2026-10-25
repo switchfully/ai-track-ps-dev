@@ -1,4 +1,5 @@
 # Block 1 Prompt Ladders
+Pair AB and Pair CD work in parallel, so choose what part each pair in your team works on.
 
 These are structured prompts, not free-form suggestions. Work through them in order.
 The goal of this block is not to finish as much as possible: it is to build prompting habits
@@ -8,15 +9,51 @@ After each prompt: read the output critically before using it. If something feel
 
 > Work in your IDE with the repo open. Copilot can see your project, so you don't have to paste code into the chat. Point it at a file instead (`#file:pom.xml` in VS Code, or attach the file with the `+` button in other IDEs). The more precisely you say what it should look at, the better the answer.
 
+**Which tool?** The exercises are written for GitHub Copilot Chat in your IDE. No strong opinion? Use that. Want to use Claude Code, another model or another tool? Go ahead, as long as AI does the work. The cheat sheets in `ai-cheat-sheets/` show you how the main tools work.
+
+**Two repos.** You use two repos today:
+
+* **Course files** (these exercises, the brief, the StackCraft standards and the cheat sheets): https://github.com/switchfully/ai-track-ps-dev. You read from this one.
+* **The code you work on**, the RetroFlow starter: https://github.com/switchfully/ai-track-ps-dev-retroflow. Your group works in a fork of this one. Everything you create today goes in that fork, and so does every commit.
+
+"The root of the repo" in these exercises always means the root of your group's fork.
+
+**How to read an exercise.** Every prompt below starts with the same three lines, so you always know where you stand:
+
+* **Read:** the files the prompt works with. These already exist, you don't make them.
+* **Create:** the file you make or change, and where it lives. If it says *nothing*, no file changes in this step.
+* **Done when:** what has to be true before you move on to the next prompt.
+
+Not sure what to do now? Look at these lines first. Still not sure after that? Ask your coach. It means the exercise isn't clear enough, not that you're doing it wrong.
+
+**The files of the day.** Over the day your repo collects a few files that you make yourselves. You'll meet them in this order:
+
+| File | Made by | In | What it is for |
+|---|---|---|---|
+| `decisions.md` | Pair AB | Block 1 | Your team's answers to everything the brief leaves open |
+| `test-matrix.md` | Pair AB | Block 1 | One row for every business rule and operation. Block 2 starts from it |
+| `README.md`, `Dockerfile`, `.github/workflows/ci.yml` | Pair CD | Block 1 | The project scaffolding |
+| `.github/copilot-instructions.md` (or `CLAUDE.md`) | Both pairs | Block 1 | Your house rules. The AI reads this before every request |
+| `prompt-log.md` | Every pair | Block 2 | Your prompts, with a one-line verdict each |
+| `audit/audit-findings.md` | Pair AD | Block 3 | The audit of RetroFlow against StackCraft's standards |
+| `review/pre-staging-review.md` | Pair BC | Block 3 | The review with a sign-off status |
+| `.github/skills/<name>/SKILL.md` | Both pairs | Block 3 | The skill you build and swap |
+
+Anything that is not in this table already exists in the starter repo.
+
 ---
 
 ## Pair AB: Domain model & REST API skeleton
 
-You are building the entity model and the basic CRUD endpoints for RetroFlow. The current version can be found at [https://github.com/switchfully/ai-track-ps-dev-retroflow
-](https://github.com/switchfully/ai-track-ps-dev-retroflow)
+You are building the entity model and the basic CRUD endpoints for RetroFlow.
+
 ---
 
 ### Prompt 1: Understand before you build
+
+* **Read:** the RetroFlow brief (`retroflow-brief.md`, in the Github repo)
+* **Create:** `decisions.md` in the root of the repo (new file)
+* **Done when:** every ambiguity you found has a decision in `decisions.md` that you made yourselves
 
 Open Copilot Chat. Paste the full contents of the RetroFlow brief and send this prompt:
 
@@ -44,6 +81,10 @@ Be specific: don't just say "the requirements could be clearer."
 
 ### Prompt 2: Entity model proposal
 
+* **Read:** the brief and your `decisions.md`
+* **Create:** nothing. This is a proposal, no file changes yet
+* **Done when:** you know where the proposal differs from your decisions, and why
+
 ```
 Based on this domain brief, propose a complete JPA entity model for RetroFlow in Java 21
 with Spring Boot 3.x. Include:
@@ -66,6 +107,10 @@ between alternatives (e.g. inheritance strategy, fetch type, collection type).
 ---
 
 ### Prompt 3: Implement the entities
+
+* **Read:** `decisions.md` and the empty entity stubs in the `entity` package
+* **Create:** the four entity classes. They replace the stubs that are already there
+* **Done when:** `mvn compile` passes
 
 Once you've agreed on the model:
 
@@ -92,6 +137,10 @@ Provide each class in full. No placeholders or TODOs.
 ---
 
 ### Prompt 4: REST endpoints for Teams and Retrospectives
+
+* **Read:** your entities and the placeholder `RetroflowController`
+* **Create:** controllers and service classes for Teams and Retrospectives (new classes in the `controller` and `service` packages)
+* **Done when:** the project compiles, and you can say for every endpoint which status codes it returns
 
 ```
 Implement Spring Boot REST controllers for the following operations in RetroFlow.
@@ -122,6 +171,10 @@ implementation yet: we will implement the business logic separately.
 
 ### Prompt 5: Interrogate the output
 
+* **Read:** the whole codebase as it is now, and the brief
+* **Create:** nothing. Write the list of rules that are not enforced yet in your notes
+* **Done when:** for every business rule you know if it is enforced, where, and which ones still need a test
+
 This is the most important prompt of the block. Do not skip it.
 
 ```
@@ -140,12 +193,16 @@ Business rules to check:
 
 **What to do with the output:**
 - This is your quality gate. Anything missing needs to be added before the block ends.
-- Note down which rules Copilot says are enforced but you cannot verify in the code, those
+- Note down which rules Copilot says are enforced, but you cannot verify in the code, those
   need a test before you trust them.
 
 ---
 
 ### Prompt 6: turn the rules into a test matrix
+
+* **Read:** the brief and `decisions.md`
+* **Create:** `test-matrix.md` in the root of the repo (new file)
+* **Done when:** you counted the rows yourselves and the number matches what the brief asks for
 
 Don't write any tests yet. First make sure you know exactly what has to be tested. You'll need this table in Block 2.
 
@@ -176,6 +233,10 @@ and a CI pipeline that keeps the team honest.
 
 ### Prompt 1: Audit the existing setup
 
+* **Read:** `pom.xml`, `application.properties` and the existing `README.md`
+* **Create:** a corrected `README.md`. It replaces the one that is there
+* **Done when:** the README says what is really configured
+
 ```
 I have a Spring Boot 3.x Maven project. Look at #file:pom.xml and
 #file:src/main/resources/application.properties.
@@ -195,6 +256,10 @@ Audit this setup and tell me:
 ---
 
 ### Prompt 2: Dockerfile
+
+* **Read:** `pom.xml`
+* **Create:** `Dockerfile` in the root of the repo (new file)
+* **Done when:** the image builds, and you checked how the non-root user is set up
 
 ```
 Write a production-quality Dockerfile for this Spring Boot Maven application.
@@ -220,6 +285,10 @@ Specifically address: why multi-stage? what are the security implications of run
 ---
 
 ### Prompt 3: GitHub Actions CI pipeline
+
+* **Read:** `pom.xml`
+* **Create:** `.github/workflows/ci.yml` (new file) and the JaCoCo configuration in `pom.xml` (an edit of the existing file)
+* **Done when:** both exist, and you checked that the build really fails under 80% coverage
 
 ```
 Write a GitHub Actions workflow for this Spring Boot Maven project.
@@ -248,6 +317,10 @@ and tell me whether this workflow has any of them.
 
 ### Prompt 4: Interrogate the pipeline
 
+* **Read:** your `.github/workflows/ci.yml`
+* **Create:** fixes in the same `ci.yml`. No new file
+* **Done when:** the critical issues are fixed, and you can explain the security concern in your own words
+
 ```
 Review the GitHub Actions workflow in #file:.github/workflows/ci.yml for common
 misconfigurations.
@@ -271,6 +344,10 @@ For each issue you find, suggest a fix.
 
 ### Prompt 5: Developer experience
 
+* **Read:** the repo as it is now
+* **Create:** a new `README.md`. It replaces the corrected one from Prompt 1
+* **Done when:** every command in the README works when you run it
+
 ```
 What else should this repository have for a developer joining the project for the first time?
 Think about: local development setup, IDE configuration, how to run tests, how to test the API
@@ -288,6 +365,10 @@ in under 5 minutes.
 ---
 
 ## The last 15 minutes, with your whole team: write your house rules
+
+* **Read:** the prompts of this morning that worked best
+* **Create:** `.github/copilot-instructions.md` (or `CLAUDE.md` for Claude Code), in the shared repo
+* **Done when:** the file is committed, it has the two required rules, and you saw it change an answer
 
 By now you've probably typed "constructor injection", "no Lombok" or "explain your choice" more than once. That's annoying, and it's easy to forget one of them. So let's write them down once, in a place where the AI reads them before every request.
 
@@ -307,9 +388,15 @@ it must never do. Keep it under 20 lines.
 
 ---
 
+## Finished early? Try a second tool
+
+Take one of your best prompts and run it in a different tool or with a different model. Claude Code, another model in your IDE, whatever you have. Compare the two answers. What did one do that the other didn't? Write down your conclusion in two lines, you can share it in Retro 1.
+
+---
+
 ## End of Block 1 checklist
 
-Before Retro 1 at 11:00, your team should be able to answer yes to:
+This is also what we look at in Retro 1. Your coach asks one pair to show their result on the shared screen. Your team should be able to answer yes to:
 
 **Pair AB:**
 - [ ] `decisions.md` exists with your spec interpretation documented

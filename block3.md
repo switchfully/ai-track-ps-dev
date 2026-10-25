@@ -1,4 +1,5 @@
 # Block 3: Grounding and skills
+Pair AD and Pair BC work in parallel.
 
 Last rotation of the day! This block, both pairs connect their AI to a real source document: StackCraft's coding standards. We serve that document through an MCP server we host ourselves. Once that works, both pairs take what they learned today and turn it into a skill: a set of instructions the AI only loads when it actually needs them.
 
@@ -12,9 +13,27 @@ What we want you to notice is the difference between an AI that answers from wha
 
 > **Watch your tokens.** Start a **new chat** for each step and name the files in your prompt. Your tool says you're out of requests? Don't wait for it to reset: work on your partner's machine or switch tools, and tell your coach.
 
+**Where things live.** Course files (cheat sheets, standards): https://github.com/switchfully/ai-track-ps-dev. The code and every file you create: your group's fork of https://github.com/switchfully/ai-track-ps-dev-retroflow.
+
+**How to read this block.** Every step starts with a **Read:** line (what it works with, these exist already) and a **Create:** line (the file you make, and where it lives). "The result is good when" is your *done when*. Not sure what to do now? Look at those lines first, then ask your coach.
+
+**Your block at a glance.** This is a rough guide, not a rule.
+
+| Part | About |
+|---|---|
+| Setting up | 10 min |
+| Step 1: feel the difference | 10 min |
+| Step 2: audit or review | 15 min |
+| Step 3: fix or write up | 15 min |
+| Build a skill and swap | The last 25 min. Don't skip the drafting, cut the swap if you must |
+
 ---
 
 ## Setting up (both pairs, about 10 minutes)
+
+* **Read:** `main` of your group's repo, with the merged work of Block 2
+* **Create:** your own branch, and the MCP configuration for your tool (`.vscode/mcp.json` in VS Code)
+* **Done when:** your tools list shows `list_documents` and `read_document`
 
 * Pull `main` of your group's repo. It has the merged work of both pairs from Block 2.
 * Create your own branch: `block3-audit` for pair AD, `block3-review` for pair BC.
@@ -47,6 +66,10 @@ What we want you to notice is the difference between an AI that answers from wha
 
 ## Both pairs, step 1: feel the difference
 
+* **Read:** the standards document (through the server), `stackcraft-coding-standards.md` to check it, and your own service layer
+* **Create:** nothing. Note what you saw in `prompt-log.md`
+* **Done when:** you can say what is different between the answer without and the answer with the connector
+
 You're going to ask the same question twice: first with the `ai-track-standards` server switched off in your tool's tool list, then with it switched on. For this one, we give you the question, so both runs are comparable:
 
 ```
@@ -66,6 +89,9 @@ For the second run, you write the extra sentence that makes the AI use the serve
 
 ### Step 2: the audit
 
+* **Read:** the codebase, and the standards document through the MCP server
+* **Create:** `audit/audit-findings.md` (new file). No code changes yet
+
 **Your mandate:** find out where RetroFlow violates StackCraft's coding standards.
 
 The result is good when:
@@ -81,6 +107,9 @@ Then check it:
 * Did the AI find the feature-first package structure rule (§1.1)? Think about why that one is tricky: the starter project was layer-first on purpose.
 
 ### Step 3: fix the Critical findings, with the tests watching
+
+* **Read:** `audit/audit-findings.md`
+* **Create:** code fixes on your branch, one per Critical finding. Mark each finding as fixed in `audit/audit-findings.md`. Existing tests stay untouched
 
 **Your mandate:** fix every Critical finding, one at a time, and keep the build green.
 
@@ -102,6 +131,9 @@ You're the senior developer who reviews RetroFlow before it goes to staging. The
 
 ### Step 2: the review, with proof
 
+* **Read:** the codebase and the brief
+* **Create:** your findings, with proof, in a scratch file or in the chat. No code changes
+
 **Your mandate:** review the codebase on four dimensions: security, API design, business rules and test quality. An agent can do more than read code. It can start the application and call it.
 
 The result is good when:
@@ -117,6 +149,9 @@ Then check it:
 * Look for tests that pass without proving anything, like a lone `isNotNull()`. Did the AI find some?
 
 ### Step 3: the review document
+
+* **Read:** your findings from step 2
+* **Create:** `review/pre-staging-review.md` (new file, commit it)
 
 **Your mandate:** combine the findings into one document you could send to the development team, and save it as `review/pre-staging-review.md`.
 
@@ -143,6 +178,10 @@ Pair AD builds `stackcraft-audit`, a skill that audits any Java project against 
 
 ### Step 4: draft the skill
 
+* **Read:** your `prompt-log.md` and the prompts that worked best in this block
+* **Create:** `.github/skills/<skill-name>/SKILL.md` (or `.claude/skills/...`), new folder and file
+* **Done when:** the skill exists in the repo, it is under 40 lines, and its description says when to use it
+
 A `SKILL.md` file always looks like this. That's the format, the AI doesn't know it by heart:
 
 ```
@@ -168,6 +207,10 @@ Then read what it wrote and edit it yourselves. Spend most of your time on the d
 
 ### Install it and swap
 
+* **Read:** the skill of the other pair
+* **Create:** pair AD writes the tests for their Critical fixes with `stackcraft-tests`. Pair BC adds a short comparison at the bottom of `review/pre-staging-review.md`
+* **Done when:** you gave the other pair one piece of feedback on their skill
+
 * Using GitHub Copilot in VS Code or a Codespace? Ask the agent to save it as `.github/skills/<skill-name>/SKILL.md`. Copilot picks it up by itself, and you can also start it with `/<skill-name>` in the chat. Not showing up? Check that agent skills are switched on in the VS Code settings, and tell your coach.
 * Using Claude Code? Save it as `.claude/skills/<skill-name>/SKILL.md`.
 * Now swap with the other pair, and test their skill in a new chat, without explaining what it does:
@@ -180,6 +223,9 @@ Then read what it wrote and edit it yourselves. Spend most of your time on the d
 ## Finished early? Build your own MCP server
 
 Everything so far connected to a server your coach already built and hosted. This is the other side of that.
+
+* **Read:** your `decisions.md`
+* **Create:** a small Node project in its own folder, outside `src/`. It does not belong in the RetroFlow code
 
 **Your mandate:** build a minimal local MCP server that makes your own `decisions.md` readable for an AI tool, and connect your tool to it.
 
@@ -195,6 +241,8 @@ Then check it:
 ---
 
 ## Done?
+
+This is what we look at in Retro 3 and in the showcase. Your coach asks you to show proof, not to tell a story: the three quotes you checked, the finding you reproduced, the skill doing its work in a fresh chat.
 
 Pair AD:
 * You have an audit with quoted sections, and you checked at least three of those quotes
