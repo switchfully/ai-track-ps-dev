@@ -103,5 +103,5 @@ accordingly.
 
 ## If you get stuck
 
-See `../../ai-tooling-fallback.md` for what to do if Copilot itself isn't working (license
-issues, rate limits, or access problems), or ask your coach.
+If Copilot itself isn't working (license issues, rate limits, or access problems), ask your
+coach. There is a fallback.

@@ -70,5 +70,4 @@ use the menu path listed above instead, and check your Keymap/Options settings.
 ## If Copilot isn't showing up at all
 
 Confirm you're signed in (look for your GitHub avatar in the Copilot icon or status bar), and
-confirm your organization's Copilot license is active. If neither resolves it, see
-`../../ai-tooling-fallback.md`.
+confirm your organization's Copilot license is active. If neither resolves it, ask your coach.

@@ -1,4 +1,5 @@
 # Block 2: Working with an agent
+Pair AC and Pair BD work in parallel.
 
 New pairs! This block, both pairs work with an AI agent. An agent is an AI that reads and edits your files by itself, runs commands like `mvn test`, reads the output and goes again. That changes your job quite a bit: you're no longer writing prompts that produce code, you're giving instructions, reviewing a plan and checking what it changed.
 
@@ -12,9 +13,29 @@ New pairs! This block, both pairs work with an AI agent. An agent is an AI that 
 
 > **Watch your tokens.** An agent burns through requests much faster than a chat: it reads files, runs the build, reads the output and tries again. So name the files in your prompt, and start a **new chat** for each step (keep the plan in your prompt log, not in the chat). Your tool says you're out of requests? Don't wait for it to reset: work on your partner's machine or switch tools, and tell your coach.
 
+**Where things live.** Course files (cheat sheets, standards): https://github.com/switchfully/ai-track-ps-dev. The code and every file you create: your group's fork of https://github.com/switchfully/ai-track-ps-dev-retroflow.
+
+**How to read this block.** Every step starts with a **Read:** line (the files it works with, these exist already) and a **Create:** line (the file you make or change, and where it lives). The **Goal** is your *done when*: if the Goal is true, you move on. Not sure what to do now? Look at those lines first, then ask your coach.
+
+**Your block at a glance.** This is a rough guide, not a rule.
+
+| Part | About |
+|---|---|
+| Setting up | 10 min |
+| Warm-up | 5 min |
+| Step 1: plan | 10 min |
+| Step 2 | 15 min |
+| Step 3 | 15 min |
+| Step 4 | A stretch step. Start it only when step 3 is done and you have 15 minutes left |
+| Bring it together | The last 15 minutes. Don't skip this one, Block 3 starts from the merged `main` |
+
 ---
 
 ## Setting up (both pairs, about 10 minutes)
+
+* **Read:** your group's repo, as it is on `main`
+* **Create:** your own branch and `prompt-log.md` in the root of the repo
+* **Done when:** you are on your branch, the chat is in Agent mode, and Source Control shows a clean working tree
 
 * Pull the latest `main` of your group's repo. It has everything from Block 1, including `decisions.md`, `test-matrix.md` and `.github/copilot-instructions.md`.
 * Open the repo in your IDE, or in a GitHub Codespace if your local setup is a problem (Code → Codespaces → Create codespace on main). Open the Copilot chat panel and switch the chat from **Ask** to **Agent**. Using Claude Code? Start it in the root of the repo. It reads `CLAUDE.md` instead of the Copilot instructions file, so ask it to create that from your instructions file.
@@ -30,6 +51,9 @@ You each own a part of the code. Stay inside it, that's what makes the merge at 
 | Tests live in | `src/test/.../service` | `src/test/.../controller` |
 
 ### Warm-up: your first agent task
+
+* **Read:** the test classes and the `pom.xml`
+* **Create:** nothing. No file may change
 
 **Goal:** the agent runs the build itself and explains in at most 10 lines why `mvn test` fails right now. No files may change.
 
@@ -52,6 +76,9 @@ Your job: get the service layer working with the agent running the tests, genera
 
 Never let an agent start changing files before you've seen its plan. That's the habit of this block.
 
+* **Read:** `RetroflowBusinessRulesTest`, `test-matrix.md`, `decisions.md`, the service classes and the brief
+* **Create:** nothing in the code. Paste the plan in `prompt-log.md`, you need it in step 2
+
 **Goal:** a plan, and no changed files yet, for three things:
 1. Making the three tests in `RetroflowBusinessRulesTest` compile and pass: which service methods are missing, or have a different signature than the test calls
 2. Enforcing every rule from `test-matrix.md` in the service layer, and which of those rows already have a test
@@ -71,6 +98,9 @@ After you got the plan:
 
 ### Step 2: let the agent run the tests
 
+* **Read:** your plan, and `RetroflowBusinessRulesTest` (read only, you never edit it)
+* **Create:** changes in the service layer, entities and repositories under `src/main`. No test changes
+
 **Goal:** the three vendor tests are green, and the agent got there by running `mvn test` itself, as many times as it needed.
 
 A good prompt for this:
@@ -86,6 +116,9 @@ After each part, open the changed files in the Source Control panel.
 * Look at how the agent reacted when a test failed. Did it fix the code, or did it try to get around the test?
 
 ### Step 3: generate the test suite
+
+* **Read:** `test-matrix.md` and your instructions file
+* **Create:** a new test class in `src/test/.../service`, next to the vendor's test
 
 **Goal:** one test for every row in `test-matrix.md`, all green, in a new test class next to the vendor's test.
 
@@ -104,6 +137,9 @@ Then check it:
 ### Step 4: attack your own tests
 
 Green tests only mean that nothing they check is broken. They don't tell you how much they check. **Mutation testing** answers that question: a tool makes small changes to your code (flip a condition, remove a check, change a return value) and runs your tests after each change. A test suite that doesn't fail after a change has just missed a bug.
+
+* **Read:** `pom.xml`, the service classes and your test classes
+* **Create:** the PIT setup in `pom.xml` and extra tests in the test class from step 3. The PIT report is generated in `target/`, you don't write it yourself
 
 **Goal:** a list of bugs your tests don't notice, and new tests that do.
 
@@ -128,6 +164,9 @@ Your job: find out what the API does today with tests the agent writes, then res
 
 ### Step 1: plan before you act
 
+* **Read:** the controllers, the brief and `decisions.md`
+* **Create:** nothing in the code. Paste the plan in `prompt-log.md`. The status code you decide on goes in `decisions.md`
+
 **Goal:** a plan, and no changed files yet, for three things:
 1. Which endpoints exist, and what each of them returns today (status code and body), compared to the brief and `decisions.md`
 2. Contract tests for every endpoint: success, invalid input (400), not found (404) and a business rule violation
@@ -145,6 +184,9 @@ After you got the plan:
 
 ### Step 2: write the contract tests first
 
+* **Read:** your plan and the controllers
+* **Create:** a test class per controller in `src/test/.../controller`
+
 **Goal:** a web-layer test class for every controller, all endpoints covered. Some of them will fail. That's the point: those are real problems in the code.
 
 A good prompt for this:
@@ -159,6 +201,9 @@ Then check it:
 * Did the agent write a test that can never fail?
 
 ### Step 3: restructure while the tests watch
+
+* **Read:** your plan, the failing contract tests and the controllers
+* **Create:** changes in the web layer only: controllers, new request and response classes, and one `@RestControllerAdvice`. Services, entities and repositories are off limits
 
 **Goal:** all contract tests are green, there is no entity in any request or response, there is one `@RestControllerAdvice` and one error format.
 
@@ -179,6 +224,9 @@ After each part:
 
 A restructuring that nobody enforces will be undone in two months. You can turn the rules into tests with **ArchUnit**, a library that checks the structure of your code.
 
+* **Read:** the web layer as it is after step 3, and `pom.xml`
+* **Create:** the ArchUnit dependency in `pom.xml` and one architecture test class in `src/test`
+
 **Goal:** a test class with at least three architecture rules, for example: controllers don't use repositories, controllers don't return entities, services don't depend on controllers. Plus proof that the rules can actually fail.
 
 A good prompt for this:
@@ -187,12 +235,22 @@ A good prompt for this:
 * Wants proof: break each rule on purpose, show that the test fails, then put the code back
 
 Then check it:
-* Open the `pom.xml` yourself and look at the dependency. Did you check it exists? You'll need that habit at 16:00.
+* Open the `pom.xml` yourself and look at the dependency. Did you check it exists? You'll need that habit on every project from now on.
 * Is the code really back to how it was after the experiment? Check the Source Control panel.
 
 ---
 
+## Finished early? Try a second tool
+
+Take a step you just did and run the same task in another agent, for example Claude Code (`ai-cheat-sheets/claude-code-cli.md`). Compare the diffs. What did the other agent change that yours didn't? Share your conclusion in Retro 2.
+
+---
+
 ## The last 15 minutes, both pairs: bring it together
+
+* **Read:** the branches `block2-service` and `block2-web`
+* **Create:** the merged `main`
+* **Done when:** `mvn verify` runs clean on `main` and you know your test count
 
 * Push your branches. Merge `block2-service` and `block2-web` into `main`. Conflicts? Let the agent help you resolve them, and read what it did.
 * Run `mvn verify` on the merged code. Fix what's broken, with the agent.
@@ -203,6 +261,8 @@ Then check it:
 ---
 
 ## Done?
+
+This is what we look at in Retro 2. Your coach asks one pair to show their result on the shared screen, so be ready to open the diff and the report.
 
 Pair AC:
 * The three vendor tests are green, and `RetroflowBusinessRulesTest` is unchanged
